@@ -38,9 +38,11 @@ public class IAdminAppointmentServiceImpl implements IAdminAppointmentService {
         AppointmentEntity appointmentEntity = appointmentEntityOptional.get();
         UserEntity agent = agentOptional.get();
 
-        if (appointmentEntity.getStatus() != AppointmentStatus.PENDING) {
-            throw new RuntimeException("La cita no se puede asignar, no está en estado PENDIENTE");
+        // Permitir asignación si la cita está en estado PENDING o PENDING_REOPENED
+        if (appointmentEntity.getStatus() != AppointmentStatus.PENDING && appointmentEntity.getStatus() != AppointmentStatus.PENDING_REOPENED) {
+            throw new RuntimeException("La cita no se puede asignar, no está en estado PENDIENTE ni REABIERTO");
         }
+
 
         appointmentEntity.setAssignedAgent(agent);
         appointmentEntity.setStatus(AppointmentStatus.ASSIGNED);
@@ -53,11 +55,11 @@ public class IAdminAppointmentServiceImpl implements IAdminAppointmentService {
 
     @Override
     public List<AppointmentDto> getAllPendingAppointments() {
-        // Obtener citas con estado PENDING o PENDING_REOPENED y sin agente asignado
+        // Citas con estado PENDING o PENDING_REOPENED y sin agente asignado
         List<AppointmentEntity> pendingAppointments = appointmentRepository.findByStatusInAndAssignedAgentIsNull(
                 List.of(AppointmentStatus.PENDING, AppointmentStatus.PENDING_REOPENED));
 
-        // Mapea cada AppointmentEntity a AppointmentDto
+        // Mapeamos AppointmentEntity a AppointmentDto
         return pendingAppointments.stream()
                 .map(EntityToDTOMapper::mapToAppointmentDto)
                 .collect(Collectors.toList()); // Recoge los AppointmentDto en una lista
@@ -66,7 +68,7 @@ public class IAdminAppointmentServiceImpl implements IAdminAppointmentService {
 
     @Override
     public List<AppointmentDto> getAllAppointments() {
-        // Obtener todas las citas
+
         List<AppointmentEntity> allAppointments = (List<AppointmentEntity>) appointmentRepository.findAll();
 
         return allAppointments.stream()
