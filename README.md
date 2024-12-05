@@ -65,6 +65,8 @@ La aplicación está orientada a optimizar la asignación de citas y la administ
 ---
 ### **Tecnologías Utilizadas**:
 
+Este sistema está enfocado en brindar una solución escalable y segura para la gestión de citas, adaptándose a las necesidades de empresas que manejan citas entre múltiples usuarios.
+
 - **Backend**: Java (Spring Boot)
 - **Base de Datos**: MySQL
 - **Seguridad**: Spring Security con JWT (JSON Web Tokens) para la autenticación y autorización
@@ -75,7 +77,21 @@ La aplicación está orientada a optimizar la asignación de citas y la administ
     - Spring Boot DevTools
     - MySQL Connector
 
-Este sistema está enfocado en brindar una solución escalable y segura para la gestión de citas, adaptándose a las necesidades de empresas que manejan citas entre múltiples usuarios.
+---
+
+## Roles de Usuario
+
+- **Admin**:
+    - Puede gestionar todas las citas y usuarios. Tiene privilegios para asignar citas a agentes, ver todas las citas y usuarios, y realizar tareas administrativas como reabrir citas y ver citas pendientes.
+- **Agent**:
+    - Puede ver las citas que se le asignan y atenderlas. No tiene permisos para gestionar otros usuarios o citas de otros agentes.
+- **Client**:
+    - Puede crear citas para él mismo, ver las citas que ha creado, y obtener información sobre las citas asociadas a su usuario.
+
+### **Usuarios Predeterminados**
+
+Por defecto, se configuraron tres usuarios con diferentes roles para facilitar el uso inicial de la aplicación:
+
 1. **Admin**
     - **Username**: admin
     - **Password**: admin
@@ -91,20 +107,7 @@ Este sistema está enfocado en brindar una solución escalable y segura para la 
     - **Password**: client
     - **Email**: client@example.com
     - **Role**: CLIENT
-
 ---
-
-## Roles de Usuario
-
-- **Admin**:
-    - Puede gestionar todas las citas y usuarios. Tiene privilegios para asignar citas a agentes, ver todas las citas y usuarios, y realizar tareas administrativas como reabrir citas y ver citas pendientes.
-- **Agent**:
-    - Puede ver las citas que se le asignan y atenderlas. No tiene permisos para gestionar otros usuarios o citas de otros agentes.
-- **Client**:
-    - Puede crear citas para él mismo, ver las citas que ha creado, y obtener información sobre las citas asociadas a su usuario.
-
----
-
 ## Consideraciones de Seguridad
 
 - Todos los endpoints que requieren autenticación usan un **token Bearer** que debe ser proporcionado en el encabezado de la solicitud.
@@ -124,8 +127,6 @@ Este sistema está enfocado en brindar una solución escalable y segura para la 
 - **Cuerpo**:
 
 ```json
-json
-Copiar código
 {
   "username": "client",
   "password": "client"
@@ -142,8 +143,6 @@ Copiar código
 - **Cuerpo**:
 
 ```json
-json
-Copiar código
 {
   "username": "newuser",
   "password": "newpassword",
@@ -167,8 +166,6 @@ Copiar código
 - **Cuerpo**:
 
 ```json
-json
-Copiar código
 {
   "project": "Proyecto Z",
   "query": "Consulta sobre casas"
