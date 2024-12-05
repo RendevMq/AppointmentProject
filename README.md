@@ -7,7 +7,7 @@ El **Appointment Management System** es una aplicación diseñada para gestionar
 La aplicación está orientada a optimizar la asignación de citas y la administración de recursos, brindando un flujo eficiente para la atención y seguimiento de citas. Los administradores tienen control total sobre las citas y usuarios, mientras que los agentes pueden gestionar y atender las citas que se les asignen. Los clientes tienen acceso a sus citas personales.
 
 <p align="center">
-  <img src="images/postman.png" alt="postman" width="600"/>
+  <img src="images/postman.png" alt="postman" width="400"/>
 </p>
 
 ---
