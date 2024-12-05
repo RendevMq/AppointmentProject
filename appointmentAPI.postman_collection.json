@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "ac4477a0-2308-4252-a993-be5ec6554ab6",
-		"name": "New Collection",
+		"name": "Appointment Management System",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "29499247"
 	},
@@ -59,14 +59,14 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImNsaWVudCIsInJvbGVzIjoiUk9MRV9DTElFTlQiLCJpYXQiOjE3MzM0MzcyNTEsImV4cCI6MTczMzQzOTA1MSwianRpIjoiYWI1ZGNiNzMtYWEyYy00MTYxLWE3MDQtNzkxOWFjMjI1Y2MyIiwibmJmIjoxNzMzNDM3MjUxfQ.r6f4eIWTVLVVBECsP-UUP4-KLpLl2C6BWYgJORFgb8s"
 							}
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"project\": \"Proyecto Z\",\r\n  \"query\": \"Consulta sobre casas\"\r\n  //Fecha se crea automaticamente \r\n}\r\n\r\n",
+							"raw": "{\r\n  \"appointmentDate\": \"2024-12-10T14:30:00\",\r\n  \"project\": \"Proyecto Z\",\r\n  \"query\": \"Consulta sobre camillas\"\r\n\r\n}\r\n\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -83,7 +83,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImNsaWVudCIsInJvbGVzIjoiUk9MRV9DTElFTlQiLCJpYXQiOjE3MzM0MzU5MDcsImV4cCI6MTczMzQzNzcwNywianRpIjoiNGU3ZjRmYWQtZTJhYS00ZWMwLWE2NjYtNzRjODNmY2I1OGIxIiwibmJmIjoxNzMzNDM1OTA3fQ.YHfMlICwShD3OwVGyjik7miCr3YzLm_6mTF9sjP7Zrk"
 							}
 						},
 						"method": "GET",
@@ -98,7 +98,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImNsaWVudCIsInJvbGVzIjoiUk9MRV9DTElFTlQiLCJpYXQiOjE3MzM0MzAwNzgsImV4cCI6MTczMzQzMTg3OCwianRpIjoiMGI3MWMxNzMtZGRlNS00ZDAwLTlkYjUtZWM4ZTY1OTliZWIyIiwibmJmIjoxNzMzNDMwMDc4fQ.bn7cWUHwSL0iGHNudt8NQRmF36_m5WEoex9U2JrAtdw"
 							}
 						},
 						"method": "GET",
@@ -118,7 +118,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImFkbWluIiwicm9sZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNzMzNDM1OTIzLCJleHAiOjE3MzM0Mzc3MjMsImp0aSI6IjZlZjk2ODZjLWRmZmMtNDcxYi04MjNhLTU2MTQ1Mjg4ZjhhMCIsIm5iZiI6MTczMzQzNTkyM30.E6piHKP2TlokxGgdq0OSWTauejXmMccwRTQnnhqPatU"
 							}
 						},
 						"method": "GET",
@@ -133,7 +133,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImFkbWluIiwicm9sZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNzMzNDMxMjg0LCJleHAiOjE3MzM0MzMwODQsImp0aSI6IjFkY2M4NmJjLTRhOWEtNDJmNy05MTI2LTQzOWMxNWU5ZTMxZSIsIm5iZiI6MTczMzQzMTI4NH0.LSlaC4Mr_k4yd1_bT0CUbXm4F205dYVOxSJzmubUbts"
 							}
 						},
 						"method": "GET",
@@ -148,7 +148,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImFkbWluIiwicm9sZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNzMzNDM0NzY2LCJleHAiOjE3MzM0MzY1NjYsImp0aSI6ImE5MzQ0YTMxLTRkZDMtNDIwZi1hNWMyLWM5MWFjNGQ2MWI0NyIsIm5iZiI6MTczMzQzNDc2Nn0.YJIBasQ20PlLqz-wi4ZNiLzKUd_-DIy1E8k58rovTsE"
 							}
 						},
 						"method": "GET",
@@ -163,7 +163,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImFkbWluIiwicm9sZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNzMzNDM1OTIzLCJleHAiOjE3MzM0Mzc3MjMsImp0aSI6IjZlZjk2ODZjLWRmZmMtNDcxYi04MjNhLTU2MTQ1Mjg4ZjhhMCIsIm5iZiI6MTczMzQzNTkyM30.E6piHKP2TlokxGgdq0OSWTauejXmMccwRTQnnhqPatU"
 							}
 						},
 						"method": "POST",
@@ -187,7 +187,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImFkbWluIiwicm9sZXMiOiJST0xFX0FETUlOIiwiaWF0IjoxNzMzNDM1OTIzLCJleHAiOjE3MzM0Mzc3MjMsImp0aSI6IjZlZjk2ODZjLWRmZmMtNDcxYi04MjNhLTU2MTQ1Mjg4ZjhhMCIsIm5iZiI6MTczMzQzNTkyM30.E6piHKP2TlokxGgdq0OSWTauejXmMccwRTQnnhqPatU"
 							}
 						},
 						"method": "POST",
@@ -219,7 +219,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "AQUI_TU_TOKEN:)"
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImFnZW50Iiwicm9sZXMiOiJST0xFX0FHRU5UIiwiaWF0IjoxNzMzNDM2MDU4LCJleHAiOjE3MzM0Mzc4NTgsImp0aSI6ImQ3NGI5ODA1LTAxMzctNDMzMy1iYzM1LWRjZDU2YjM4NTVkYSIsIm5iZiI6MTczMzQzNjA1OH0.40RhX8VLywJVsHCINcUB68zdDDGPsdv55Nv-3rb1O0w"
 							}
 						},
 						"method": "GET",
@@ -240,8 +240,15 @@
 				{
 					"name": "Atender una cita",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJERVZfQkFDS0VORCIsInN1YiI6ImFnZW50Iiwicm9sZXMiOiJST0xFX0FHRU5UIiwiaWF0IjoxNzMzNDM2MTM5LCJleHAiOjE3MzM0Mzc5MzksImp0aSI6ImY4YTEyYzE1LTQ2NmUtNDI2Zi04YzIxLWE3NjQ5ODA5ODM3OCIsIm5iZiI6MTczMzQzNjEzOX0.8mXOd9O6LWRr0ZSYt21k2MzLAWj4jZV4ZH5gx4WArxs"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/appointments/agent/1/attend"
 					},
 					"response": []
 				}

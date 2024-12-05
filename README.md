@@ -147,7 +147,7 @@ Por defecto, se configuraron tres usuarios con diferentes roles para facilitar e
   "username": "newuser",
   "password": "newpassword",
   "email": "newuser@example.com",
-  "role": "CLIENT" // Este campo es opcional, por defecto es "CLIENT". Si se proporciona "ADMIN" o "AGENT", el usuario debe estar autenticado como "ADMIN".
+  "role": "CLIENT" 
 }
 
 ```
@@ -261,9 +261,17 @@ Por defecto, se configuraron tres usuarios con diferentes roles para facilitar e
 ### 4.2 **Atender una cita**
 
 - **Método**: `POST`
-- **Ruta**: `/appointments/agent/attend`
+- **Ruta**: `/appointments/agent/{appointmentId}/attend`
 - **Autenticación**: Requiere token Bearer
-- **Descripción**: Permite al agente atender una cita asignada. (Cuerpo de la solicitud no proporcionado en el ejemplo.)
+- **Descripción**: Permite al agente atender una cita asignada. El cuerpo de la solicitud debe contener el ID de la cita a atender.
 
+Ejemplo de cuerpo de solicitud:
 
+```json
+{
+  "appointmentId": 1
+}
+```
+
+Este método permite al agente marcar una cita como atendida, actualizando su estado en el sistema.
 
