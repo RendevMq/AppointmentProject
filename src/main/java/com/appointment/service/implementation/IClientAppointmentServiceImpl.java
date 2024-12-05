@@ -37,9 +37,8 @@ public class IClientAppointmentServiceImpl implements IClientAppointmentService 
     public AppointmentDto createAppointment(AppointmentCreateRequestDto appointmentRequestDto) {
         UserEntity client = getAuthenticatedUser();
 
-        // Asignar la fecha de la cita automáticamente si no se proporciona
         if (appointmentRequestDto.getAppointmentDate() == null) {
-            appointmentRequestDto.setAppointmentDate(LocalDateTime.now());
+            throw new RuntimeException("La fecha de la cita es obligatoria");
         }
 
         // Crear la cita, asignando el cliente autenticado automáticamente

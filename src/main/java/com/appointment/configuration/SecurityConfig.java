@@ -39,6 +39,11 @@ public class SecurityConfig {
                     // Definir los endpoints públicos
                     http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll(); // Autenticación pública
 
+                    // rutas protegidas por roles
+                    http.requestMatchers("/appointments/admin/**").hasRole("ADMIN");
+                    http.requestMatchers("/appointments/agent/**").hasRole("AGENT");
+                    http.requestMatchers("/appointments/client/**").hasRole("CLIENT");
+
                     // Cualquier otro endpoint se controlará con las anotaciones @PreAuthorize
                     http.anyRequest().authenticated();
                 })
