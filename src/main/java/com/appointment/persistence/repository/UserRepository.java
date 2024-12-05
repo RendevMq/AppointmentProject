@@ -9,15 +9,16 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
+    // Encontrar un usuario por su nombre de usuario
     Optional<UserEntity> findUserEntityByUsername(String username);
 
-    // Encontrar usuario por email
-    Optional<UserEntity> findByEmail(String email);
-
-    // Verificar si existe un usuario con un nombre de usuario
+    // Verificar si un usuario con el nombre de usuario existe
     boolean existsByUsername(String username);
 
-    // Verificar si existe un usuario con un email
+    // Verificar si un usuario con el email existe
     boolean existsByEmail(String email);
+
+    // Encontrar un usuario por su ID
+    Optional<UserEntity> findById(Long id);
 
 }
