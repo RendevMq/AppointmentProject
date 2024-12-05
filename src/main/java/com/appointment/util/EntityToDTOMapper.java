@@ -77,7 +77,6 @@ public class EntityToDTOMapper {
         );
     }
 
-
     // Mapeo de UserEntity a AuthCreateUserRequest (para crear usuario)
     public static AuthCreateUserRequest mapToAuthCreateUserRequest(UserEntity userEntity) {
         return new AuthCreateUserRequest(

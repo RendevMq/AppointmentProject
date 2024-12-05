@@ -1,11 +1,6 @@
 package com.appointment.service.implementation;
-
-
 import com.appointment.persistence.entity.authEntities.UserEntity;
 import com.appointment.persistence.repository.UserRepository;
-import com.appointment.presentation.dto.authDto.AuthCreateUserRequest;
-import com.appointment.presentation.dto.authDto.AuthResponse;
-import com.appointment.presentation.dto.authDto.AuthLoginRequest;
 import com.appointment.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -43,9 +38,8 @@ public class IUserServiceImpl implements IUserService {
 
     @Override
     public boolean isAdmin() {
-        // Aquí deberíamos verificar si el usuario actual es un Admin
-        // Esto se basaría en el contexto de autenticación
-        return false; // Asumir que este es un método de ejemplo
+        // TODO: Aquí deberíamos verificar si el usuario actual es un Admin
+        return false; // Asumir  ejemplo
     }
 }
 

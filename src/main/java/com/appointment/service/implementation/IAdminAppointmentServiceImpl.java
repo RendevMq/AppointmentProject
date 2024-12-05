@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class IAdminAppointmentServiceImpl implements IAdminAppointmentService {
@@ -29,14 +30,14 @@ public class IAdminAppointmentServiceImpl implements IAdminAppointmentService {
         Optional<UserEntity> agentOptional = userRepository.findById(agentId);
 
         if (appointmentEntityOptional.isEmpty() || agentOptional.isEmpty()) {
-            throw new RuntimeException("Appointment or Agent not found");
+            throw new RuntimeException("Cita o Agente no encontrados");
         }
 
         AppointmentEntity appointmentEntity = appointmentEntityOptional.get();
         UserEntity agent = agentOptional.get();
 
         if (appointmentEntity.getStatus() != AppointmentStatus.PENDING) {
-            throw new RuntimeException("Appointment cannot be assigned, it is not in PENDING status");
+            throw new RuntimeException("La cita no se puede asignar, no está en estado PENDIENTE");
         }
 
         appointmentEntity.setAssignedAgent(agent);
@@ -49,6 +50,10 @@ public class IAdminAppointmentServiceImpl implements IAdminAppointmentService {
     public List<AppointmentDto> getAllPendingAppointments() {
         List<AppointmentEntity> pendingAppointments = appointmentRepository.findByStatusAndAssignedAgentIsNull(AppointmentStatus.PENDING);
 
-        return EntityToDTOMapper.mapToAppointmentDto(pendingAppointments); // Método para convertir la lista de AppointmentEntity a AppointmentDto
+        // Mapea cada AppointmentEntity a AppointmentDto
+        return pendingAppointments.stream()
+                .map(EntityToDTOMapper::mapToAppointmentDto)
+                .collect(Collectors.toList()); // Recoge los AppointmentDto en una lista
     }
+
 }

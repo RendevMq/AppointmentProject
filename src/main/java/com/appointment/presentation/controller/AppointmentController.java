@@ -24,17 +24,17 @@ public class AppointmentController {
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
-    // Obtener todas las citas de un cliente
-    @GetMapping("/client/{clientId}")
-    public ResponseEntity<List<AppointmentDto>> getAppointmentsByClient(@PathVariable Long clientId) {
-        List<AppointmentDto> appointments = clientAppointmentService.getAppointmentsByClientId(clientId);
+    // Obtener todas las citas del cliente autenticado
+    @GetMapping("/client")
+    public ResponseEntity<List<AppointmentDto>> getAppointmentsByClient() {
+        List<AppointmentDto> appointments = clientAppointmentService.getAppointmentsByAuthenticatedClient();
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
-    // Obtener los detalles de una cita específica
+    // Obtener los detalles de una cita específica del cliente autenticado
     @GetMapping("/{appointmentId}")
-    public ResponseEntity<AppointmentDto> getAppointmentDetails(@PathVariable Long appointmentId, @RequestParam Long clientId) {
-        AppointmentDto appointment = clientAppointmentService.getAppointmentDetails(appointmentId, clientId);
+    public ResponseEntity<AppointmentDto> getAppointmentDetails(@PathVariable Long appointmentId) {
+        AppointmentDto appointment = clientAppointmentService.getAppointmentDetails(appointmentId);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
     }
 }

@@ -20,16 +20,16 @@ public class IAgentAppointmentServiceImpl implements IAgentAppointmentService {
         Optional<AppointmentEntity> appointmentEntityOptional = appointmentRepository.findById(appointmentId);
 
         if (appointmentEntityOptional.isEmpty()) {
-            throw new RuntimeException("Appointment not found");
+            throw new RuntimeException("Cita no encontrada");
         }
 
         AppointmentEntity appointmentEntity = appointmentEntityOptional.get();
 
         if (appointmentEntity.getStatus() != AppointmentStatus.ASSIGNED) {
-            throw new RuntimeException("Appointment is not in ASSIGNED status");
+            throw new RuntimeException("La cita no está en estado ASIGNADA");
         }
 
-        // Actualizamos la cita a COMPLETED
+        // Actualizamos la cita a COMPLETADA
         appointmentEntity.setStatus(AppointmentStatus.COMPLETED);
         appointmentEntity.setCompletedDate(appointmentEntity.getCompletedDate() == null ? java.time.LocalDateTime.now() : appointmentEntity.getCompletedDate());
 

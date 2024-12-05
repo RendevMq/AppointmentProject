@@ -29,6 +29,6 @@ public class AppointmentCreateRequestDto {
     @NotBlank
     private String query; // Consulta o tema a tratar
 
-    @NotNull
-    private Long userId; // ID del cliente que crea la cita
+    //    @NotNull
+    //    private Long userId; // ID del cliente que crea la cita
 }

@@ -38,7 +38,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(http -> {
                     // Definir los endpoints públicos
                     http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll(); // Autenticación pública
-                    http.requestMatchers(HttpMethod.GET, "/public/**").permitAll(); // Cualquier endpoint público
 
                     // Cualquier otro endpoint se controlará con las anotaciones @PreAuthorize
                     http.anyRequest().authenticated();

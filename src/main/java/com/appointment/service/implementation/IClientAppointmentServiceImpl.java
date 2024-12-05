@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +25,7 @@ public class IClientAppointmentServiceImpl implements IClientAppointmentService 
     @Autowired
     private UserRepository userRepository;
 
-    // Método para obtener el usuario autenticado desde el contexto de seguridad
+    // Obtener el usuario autenticado desde el contexto de seguridad
     private UserEntity getAuthenticatedUser() {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findUserEntityByUsername(currentUsername)
@@ -36,6 +36,12 @@ public class IClientAppointmentServiceImpl implements IClientAppointmentService 
     public AppointmentDto createAppointment(AppointmentCreateRequestDto appointmentRequestDto) {
         UserEntity client = getAuthenticatedUser();
 
+        // Asignar la fecha de la cita automáticamente si no se proporciona
+        if (appointmentRequestDto.getAppointmentDate() == null) {
+            appointmentRequestDto.setAppointmentDate(LocalDateTime.now());
+        }
+
+        // Crear la cita, asignando el cliente autenticado automáticamente
         AppointmentEntity appointmentEntity = EntityToDTOMapper.mapToAppointmentEntity(appointmentRequestDto, client);
         AppointmentEntity savedAppointment = appointmentRepository.save(appointmentEntity);
 
@@ -43,38 +49,32 @@ public class IClientAppointmentServiceImpl implements IClientAppointmentService 
     }
 
     @Override
-    public List<AppointmentDto> getAppointmentsByClientId(Long clientId) {
+    public List<AppointmentDto> getAppointmentsByAuthenticatedClient() {
         UserEntity authenticatedUser = getAuthenticatedUser();
 
-        // Verificamos que el cliente autenticado sea el mismo que el cliente que está solicitando las citas
-        if (!authenticatedUser.getId().equals(clientId)) {
-            throw new RuntimeException("No tienes acceso a las citas de otro cliente.");
-        }
+        // Obtener todas las citas del cliente autenticado
+        List<AppointmentEntity> appointments = appointmentRepository.findByClient_Id(authenticatedUser.getId());
 
-        List<AppointmentEntity> appointments = appointmentRepository.findByClient_Id(clientId);
-
-        // Convertir a DTO
+        // Convertir las citas a DTO y devolverlas
         return appointments.stream()
                 .map(EntityToDTOMapper::mapToAppointmentDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public AppointmentDto getAppointmentDetails(Long appointmentId, Long clientId) {
+    public AppointmentDto getAppointmentDetails(Long appointmentId) {
         UserEntity authenticatedUser = getAuthenticatedUser();
 
-        // Verificamos que el cliente autenticado sea el mismo que el cliente que está solicitando la cita
-        if (!authenticatedUser.getId().equals(clientId)) {
-            throw new RuntimeException("No tienes acceso a los detalles de esta cita.");
-        }
-
+        // Buscar la cita por ID
         AppointmentEntity appointmentEntity = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("La cita no existe"));
 
-        if (!appointmentEntity.getClient().getId().equals(clientId)) {
+        // Verificar que la cita pertenece al cliente autenticado
+        if (!appointmentEntity.getClient().getId().equals(authenticatedUser.getId())) {
             throw new RuntimeException("No tienes acceso a los detalles de esta cita.");
         }
 
+        // Devolver la cita mapeada a DTO
         return EntityToDTOMapper.mapToAppointmentDto(appointmentEntity);
     }
 }

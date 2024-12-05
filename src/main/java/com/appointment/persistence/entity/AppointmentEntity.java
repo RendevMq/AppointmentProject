@@ -1,6 +1,5 @@
 package com.appointment.persistence.entity;
 
-
 import com.appointment.persistence.entity.authEntities.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "appointments")
-public class AppointmentEntity extends AuditEntity {
+public class AppointmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +40,25 @@ public class AppointmentEntity extends AuditEntity {
     private AppointmentStatus status; // Estado de la cita
 
     private LocalDateTime reopenedDate; // Fecha cuando la cita fue reabierta
-}
 
+    // Fecha de creación
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    // Fecha de actualización
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    // MEEtodo que se ejecuta antes de guardar la entidad en la base de datos
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now(); // fecha y hora de creación
+        updatedAt = createdAt; // Inicializar updatedAt en el momento de creación
+    }
+
+    // Metodo que se ejecuta antes de actualizar la entidad en la base de datos
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now(); //  fecha y hora de actualización
+    }
+}

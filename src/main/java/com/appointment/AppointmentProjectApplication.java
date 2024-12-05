@@ -24,15 +24,15 @@ public class AppointmentProjectApplication {
 	CommandLineRunner init(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
 			// 1) Crear los roles
-			RoleEntity roleAdmin = RoleEntity.builder()
-					.roleEnum(RoleEnum.ADMIN)
-					.build();
-			RoleEntity roleAgent = RoleEntity.builder()
-					.roleEnum(RoleEnum.AGENT)
-					.build();
-			RoleEntity roleClient = RoleEntity.builder()
-					.roleEnum(RoleEnum.CLIENT)
-					.build();
+			RoleEntity roleAdmin = new RoleEntity();
+			roleAdmin.setRoleEnum(RoleEnum.ADMIN);
+
+			RoleEntity roleAgent = new RoleEntity();
+			roleAgent.setRoleEnum(RoleEnum.AGENT);
+
+			RoleEntity roleClient = new RoleEntity();
+			roleClient.setRoleEnum(RoleEnum.CLIENT);
+
 
 			// Guardar los roles si no existen
 			roleRepository.saveAll(List.of(roleAdmin, roleAgent, roleClient));
@@ -83,4 +83,5 @@ public class AppointmentProjectApplication {
 			userRepository.saveAll(List.of(adminUser, agentUser, clientUser));
 		};
 	}
+
 }

@@ -11,8 +11,8 @@ public interface IClientAppointmentService {
     AppointmentDto createAppointment(AppointmentCreateRequestDto appointmentRequestDto);
 
     // Obtener todas las citas del cliente autenticado
-    List<AppointmentDto> getAppointmentsByClientId(Long clientId);
+    List<AppointmentDto> getAppointmentsByAuthenticatedClient();
 
-    // Obtener los detalles de una cita específica por su ID
-    AppointmentDto getAppointmentDetails(Long appointmentId, Long clientId);
+    // Obtener los detalles de una cita específica del cliente autenticado
+    AppointmentDto getAppointmentDetails(Long appointmentId);
 }

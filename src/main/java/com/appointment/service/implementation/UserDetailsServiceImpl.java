@@ -23,8 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -41,13 +39,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
-    // Interpretar "username" como si fuera "email"
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findUserEntityByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("El usuario con email " + username + " no existe"));
 
-        // Como tu lógica dice que cada usuario solo tiene un rol, usamos el primer rol
+        // Usamos el primer rol
         List<SimpleGrantedAuthority> authorityList = List.of(
                 new SimpleGrantedAuthority("ROLE_".concat(userEntity.getRole().getRoleEnum().name()))
         );
