@@ -1,5 +1,6 @@
 package com.appointment.presentation.dto;
 
+import com.appointment.persistence.entity.AppointmentStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -39,5 +39,7 @@ public class AppointmentEntity extends AuditEntity {
     private LocalDateTime assignmentDate; // Fecha de asignación al agente
     private LocalDateTime completedDate; // Fecha cuando la cita fue completada
     private AppointmentStatus status; // Estado de la cita
+
+    private LocalDateTime reopenedDate; // Fecha cuando la cita fue reabierta
 }
 
