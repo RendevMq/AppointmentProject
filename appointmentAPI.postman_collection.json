@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "ac4477a0-2308-4252-a993-be5ec6554ab6",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29499247"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Log-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"client\",\r\n  \"password\": \"client\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auth/log-in"
+					},
+					"response": []
+				},
+				{
+					"name": "Sign-up con o sin autorización",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"newuser\",\r\n    \"password\": \"newpassword\",\r\n    \"email\": \"newuser@example.com\",\r\n    \"role\": \"CLIENT\"  // El campo 'role' es opcional. Si no se proporciona, se asigna 'CLIENT' por defecto. Si se asigna 'ADMIN' o 'AGENT', se requiere que el usuario autenticado sea un 'ADMIN'.\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/auth/sign-up"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AppointmentControllerClient",
+			"item": [
+				{
+					"name": "Crear citas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"project\": \"Proyecto Z\",\r\n  \"query\": \"Consulta sobre casas\"\r\n  //Fecha se crea automaticamente \r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/appointments/client"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todas citas del usuario autenticado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/appointments/client"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener citas por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/appointments/client/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AppointmentControllerAdmin",
+			"item": [
+				{
+					"name": "Obtener todas las citas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/appointments/admin/all"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todas las citas pendientes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/appointments/admin/pending"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los usuarios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/appointments/admin/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar una cita a un agente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"appointmentId\": 1,\r\n  \"agentId\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/appointments/admin/assign"
+					},
+					"response": []
+				},
+				{
+					"name": "Reabrir una cita",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"appointmentId\": 1\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/appointments/admin/reopen"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AppointmentControllerAgent",
+			"item": [
+				{
+					"name": "Ver todas las citas asignadas al agente",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "AQUI_TU_TOKEN:)"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/appointments/agent/assigned"
+					},
+					"response": []
+				},
+				{
+					"name": "Atender una cita",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
