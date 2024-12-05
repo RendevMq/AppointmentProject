@@ -80,14 +80,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new UsernamePasswordAuthenticationToken(email, userDetails.getPassword(), userDetails.getAuthorities());
     }
 
-    // En el UserDetailsServiceImpl (o servicio relacionado con la autorización)
+    // En el UserDetailsServiceImpl
     public boolean isAdminUser() {
-        // Obtiene el rol del usuario autenticado
+        // Obtienemos el rol del usuario autenticado
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
     }
-
-
 
     public AuthResponse createUser(AuthCreateUserRequest authCreateUserRequest) {
         String username = authCreateUserRequest.username();
@@ -143,7 +141,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private RoleEnum getRoleEnum(AuthCreateUserRequest authCreateUserRequest) {
-        // Obtener el rol que fue proporcionado en la solicitud
+        // Obtenenemos el rol que fue proporcionado en la solicitud
         RoleEnum roleEnum = authCreateUserRequest.role(); // Recibimos un solo rol
 
         // Si no se especifica rol (roleEnum es null), asignamos CLIENT como rol por defecto
@@ -162,75 +160,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return roleEnum;
     }
 
-
-
-
-
-
 }
 
-    /*
-    public AuthResponse createUser(AuthCreateUserRequest authCreateUserRequest) {
-        String username = authCreateUserRequest.username();
-        String password = authCreateUserRequest.password();
-        String email = authCreateUserRequest.email();
-
-        if (userRepository.existsByUsername(username)) {
-            throw new IllegalArgumentException("El nombre de usuario ya está en uso");
-        }
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("El correo electrónico ya está en uso");
-        }
-
-        RoleEnum roleEnum = getRoleEnum(authCreateUserRequest);
-
-        // Encontrar el rol correspondiente
-        RoleEntity roleEntity = roleRepository.findByRoleEnum(roleEnum)
-                .orElseThrow(() -> new IllegalArgumentException("El rol especificado no existe"));
-
-        // Crear el usuario
-        UserEntity userEntity = UserEntity.builder()
-                .username(username)
-                .email(email) // Asignar email
-                .password(passwordEncoder.encode(password))
-                .role(roleEntity) // Asignar un solo rol
-                .isEnable(true)
-                .accountNoLocked(true)
-                .accountNoExpired(true)
-                .credentialNoExpired(true)
-                .build();
-
-        // Guardamos el usuario
-        UserEntity userCreated = userRepository.save(userEntity);
-
-        // Creamos autoridad
-        List<SimpleGrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_" + userCreated.getRole().getRoleEnum().name()));
-
-        // Se establecec el contexto de seguridad
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userCreated.getUsername(), userCreated.getPassword(), authorityList);
-
-        // Se crea el tokenJWT
-        String accessToken = jwtUtils.createToken(authentication);
-
-        return new AuthResponse(userCreated.getUsername(), "Usuario creado con éxito", accessToken, true);
-    }
-
-    private RoleEnum getRoleEnum(AuthCreateUserRequest authCreateUserRequest) {
-        RoleEnum roleEnum = authCreateUserRequest.roleEnum(); // Recibimos un solo rol
-
-        //Logica para crear los usuarios
-        // Si el rol no está especificado, asignamos "CLIENTE" por defecto
-        if (roleEnum == null) {
-            roleEnum = RoleEnum.CLIENT;
-        }
-
-        // Si el rol es ADMIN o AGENT, se debe verificar que el usuario autenticado sea ADMIN
-        if (roleEnum == RoleEnum.ADMIN || roleEnum == RoleEnum.AGENT) {
-            if (!isAdminUser()) {
-                throw new IllegalArgumentException("Solo un administrador puede asignar roles de ADMIN o AGENT");
-            }
-        }
-        return roleEnum;
-    }
-    */

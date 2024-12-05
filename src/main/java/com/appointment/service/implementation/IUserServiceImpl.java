@@ -39,7 +39,7 @@ public class IUserServiceImpl implements IUserService {
     @Override
     public boolean isAdmin() {
         // TODO: Aquí deberíamos verificar si el usuario actual es un Admin
-        return false; // Asumir  ejemplo
+        return false;
     }
 }
 
