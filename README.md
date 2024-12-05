@@ -50,7 +50,7 @@ La aplicación está orientada a optimizar la asignación de citas y la administ
     - Una vez que el proyecto esté en ejecución, abre el archivo `appointmentAPI.postman_collection` en Postman.
     - Importa el archivo en Postman para realizar las pruebas de la API.
     - Asegúrate de realizar las peticiones con los tokens de autenticación correspondientes según el rol de usuario (Admin, Agent, Client).
-
+    - Por defecto, se configuraron tres usuarios con diferentes roles para facilitar el uso inicial de la aplicación. ↓ 
 ---
 
 **Características Principales**:
