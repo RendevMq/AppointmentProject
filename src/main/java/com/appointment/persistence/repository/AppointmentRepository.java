@@ -25,4 +25,6 @@ public interface AppointmentRepository extends CrudRepository<AppointmentEntity,
 
     // Encontrar citas asignadas a un agente específico
     List<AppointmentEntity> findByAssignedAgent_Id(Long agentId);
+
+    List<AppointmentEntity> findByStatusInAndAssignedAgentIsNull(List<AppointmentStatus> statuses);
 }

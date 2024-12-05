@@ -32,6 +32,7 @@ public class IClientAppointmentServiceImpl implements IClientAppointmentService 
                 .orElseThrow(() -> new RuntimeException("Usuario no autenticado"));
     }
 
+
     @Override
     public AppointmentDto createAppointment(AppointmentCreateRequestDto appointmentRequestDto) {
         UserEntity client = getAuthenticatedUser();

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/appointments")
+@RequestMapping("/appointments/client")
 public class AppointmentController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class AppointmentController {
     }
 
     // Obtener todas las citas del cliente autenticado
-    @GetMapping("/client")
+    @GetMapping
     public ResponseEntity<List<AppointmentDto>> getAppointmentsByClient() {
         List<AppointmentDto> appointments = clientAppointmentService.getAppointmentsByAuthenticatedClient();
         return new ResponseEntity<>(appointments, HttpStatus.OK);

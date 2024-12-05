@@ -4,11 +4,7 @@ package com.appointment.util;
 import com.appointment.persistence.entity.AppointmentEntity;
 import com.appointment.persistence.entity.AppointmentStatus;
 import com.appointment.persistence.entity.authEntities.UserEntity;
-import com.appointment.presentation.dto.AppointmentAssignRequestDto;
-import com.appointment.presentation.dto.AppointmentCompleteRequestDto;
-import com.appointment.presentation.dto.AppointmentCreateRequestDto;
-import com.appointment.presentation.dto.AppointmentDto;
-import com.appointment.presentation.dto.AppointmentReopenRequestDto;
+import com.appointment.presentation.dto.*;
 import com.appointment.presentation.dto.authDto.AuthCreateUserRequest;
 import com.appointment.presentation.dto.authDto.AuthResponse;
 import com.appointment.presentation.dto.authDto.AuthLoginRequest;
@@ -62,7 +58,7 @@ public class EntityToDTOMapper {
 
     // Mapeo de AppointmentReopenRequestDto a AppointmentEntity
     public static AppointmentEntity mapToAppointmentReopenEntity(AppointmentReopenRequestDto appointmentReopenRequestDto, AppointmentEntity appointmentEntity) {
-        appointmentEntity.setStatus(AppointmentStatus.REOPENED);
+        appointmentEntity.setStatus(AppointmentStatus.PENDING_REOPENED);
         appointmentEntity.setReopenedDate(LocalDateTime.now());
         return appointmentEntity;
     }
@@ -93,5 +89,14 @@ public class EntityToDTOMapper {
             return Optional.of(userEntity);
         }
         return Optional.empty();
+    }
+
+    public static UserDto mapToUserDto(UserEntity userEntity) {
+        return new UserDto(
+                userEntity.getId(),
+                userEntity.getUsername(),
+                userEntity.getEmail(),
+                userEntity.getRole().getRoleEnum().name()
+        );
     }
 }

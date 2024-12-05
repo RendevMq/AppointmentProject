@@ -8,6 +8,6 @@ import jakarta.validation.constraints.NotNull;
 public record AuthCreateUserRequest(
         @NotBlank String username,
         @NotBlank String password,
-        @NotBlank String email,  // Añadir email
-        @NotNull RoleEnum roleEnum) {  // Aquí usamos RoleEnum directamente
+        @NotBlank String email,
+        RoleEnum role) {  // Aquí usamos RoleEnum directamente (el campo puede ser null)
 }

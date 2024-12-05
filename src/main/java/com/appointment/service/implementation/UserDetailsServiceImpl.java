@@ -10,6 +10,7 @@ import com.appointment.presentation.dto.authDto.AuthLoginRequest;
 import com.appointment.presentation.dto.authDto.AuthResponse;
 import com.appointment.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -87,6 +88,88 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
 
+
+    public AuthResponse createUser(AuthCreateUserRequest authCreateUserRequest) {
+        String username = authCreateUserRequest.username();
+        String password = authCreateUserRequest.password();
+        String email = authCreateUserRequest.email();
+
+        if (userRepository.existsByUsername(username)) {
+            throw new IllegalArgumentException("El nombre de usuario ya está en uso");
+        }
+        if (userRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("El correo electrónico ya está en uso");
+        }
+
+        RoleEnum roleEnum = getRoleEnum(authCreateUserRequest);
+
+        // Encontrar el rol correspondiente
+        RoleEntity roleEntity = roleRepository.findByRoleEnum(roleEnum)
+                .orElseThrow(() -> new IllegalArgumentException("El rol especificado no existe"));
+
+        // Crear el usuario
+        UserEntity userEntity = UserEntity.builder()
+                .username(username)
+                .email(email)
+                .password(passwordEncoder.encode(password))
+                .role(roleEntity)
+                .isEnable(true)
+                .accountNoLocked(true)
+                .accountNoExpired(true)
+                .credentialNoExpired(true)
+                .build();
+
+        // Si el rol es ADMIN o AGENT, se verifica que el usuario autenticado sea ADMIN
+        if (roleEnum == RoleEnum.ADMIN || roleEnum == RoleEnum.AGENT) {
+            if (!isAdminUser()) {
+                throw new IllegalArgumentException("Solo un administrador puede asignar roles de ADMIN o AGENT");
+            }
+        }
+
+        // Guardamos el usuario
+        UserEntity userCreated = userRepository.save(userEntity);
+
+        // Creamos autoridad
+        List<SimpleGrantedAuthority> authorityList = List.of(new SimpleGrantedAuthority("ROLE_" + userCreated.getRole().getRoleEnum().name()));
+
+        // Se establece el contexto de seguridad
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userCreated.getUsername(), userCreated.getPassword(), authorityList);
+
+        // Se crea el token JWT
+        String accessToken = jwtUtils.createToken(authentication);
+
+        return new AuthResponse(userCreated.getUsername(), "Usuario creado con éxito", accessToken, true);
+    }
+
+    private RoleEnum getRoleEnum(AuthCreateUserRequest authCreateUserRequest) {
+        // Obtener el rol que fue proporcionado en la solicitud
+        RoleEnum roleEnum = authCreateUserRequest.role(); // Recibimos un solo rol
+
+        // Si no se especifica rol (roleEnum es null), asignamos CLIENT como rol por defecto
+        if (roleEnum == null) {
+            roleEnum = RoleEnum.CLIENT;
+        }
+
+        // Si el rol es ADMIN o AGENT, se debe verificar que el usuario autenticado sea ADMIN
+        if (roleEnum == RoleEnum.ADMIN || roleEnum == RoleEnum.AGENT) {
+            if (!isAdminUser()) {
+                throw new AccessDeniedException("Solo un administrador puede asignar roles de ADMIN o AGENT");
+            }
+        }
+
+        // Retornamos el rol asignado
+        return roleEnum;
+    }
+
+
+
+
+
+
+}
+
+    /*
     public AuthResponse createUser(AuthCreateUserRequest authCreateUserRequest) {
         String username = authCreateUserRequest.username();
         String password = authCreateUserRequest.password();
@@ -150,6 +233,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return roleEnum;
     }
-
-}
-
+    */
